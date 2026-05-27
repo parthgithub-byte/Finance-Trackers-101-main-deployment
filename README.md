@@ -2,27 +2,25 @@
 
 A personal finance tracking web app with a **React + Vite** frontend and a **Flask** backend.
 
+**🌟 Live Demo:** [https://finance-trackers-101-main-deploymen.vercel.app/](https://finance-trackers-101-main-deploymen.vercel.app/)
+
 ## Project Structure
 
 ```
 Finance-Trackers-101-main/
 ├── backend/              # Flask API + chart generation
-│   ├── app.py            # Main server
-│   ├── barplot.py        # Bar chart script (standalone)
-│   ├── heatmap.py        # Heatmap script (standalone)
-│   ├── linechart.py      # Line chart script (standalone)
-│   ├── piechart.py       # Pie chart script (standalone)
+│   ├── app.py            # Main server (includes chart gen)
 │   └── database.sqlite   # Auto-created SQLite DB
 ├── src/                  # React frontend
-│   ├── App.tsx
-│   ├── Graphs.tsx
-│   ├── SignIn.tsx
-│   ├── SignUp.tsx
-│   ├── ThemeContext.tsx
-│   ├── api.ts
-│   ├── hooks/useAuth.ts
-│   ├── components/ProtectedRoute.tsx
-│   └── pages/BudgetPage.tsx
+│   ├── App.jsx
+│   ├── Graphs.jsx
+│   ├── SignIn.jsx
+│   ├── SignUp.jsx
+│   ├── ThemeContext.jsx
+│   ├── api.js
+│   ├── hooks/useAuth.js
+│   ├── components/ProtectedRoute.jsx
+│   └── pages/BudgetPage.jsx
 ├── requirements.txt
 └── package.json
 ```
@@ -52,17 +50,14 @@ The app runs at `http://localhost:5173`.
 
 ## AI Insights (Optional)
 
-Set your OpenRouter API key as an environment variable before starting the backend:
+Create a `.env` file in the root of the project to enable Langchain/Gemini AI Insights:
 
 ```bash
-# Windows
-set OPENROUTER_API_KEY=sk-...
-
-# macOS / Linux
-export OPENROUTER_API_KEY=sk-...
+GEMINI_API_KEY=your_google_ai_studio_key_here
+GEMINI_MODEL=gemini-3.5-flash
 ```
 
-If not set, the AI Insights button will return a friendly message instead of crashing.
+If not set, the AI Insights panel will return a friendly message instead of crashing.
 
 ## Features
 
