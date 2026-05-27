@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const Graphs: React.FC = () => {
-  const availablePlots: string[] = ["bar", "pie", "line", "heatmap"];
-  const [selectedPlot, setSelectedPlot] = useState<string>("all");
-  const [plots, setPlots] = useState<Record<string, string>>({});
+const Graphs = () => {
+  const availablePlots = ["bar", "pie", "line", "heatmap"];
+  const [selectedPlot, setSelectedPlot] = useState("all");
+  const [plots, setPlots] = useState({});
 
   useEffect(() => {
     const fetchPlots = () => {
-      const updatedPlots: Record<string, string> = {};
+      const updatedPlots = {};
       const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
       
       availablePlots.forEach((type) => {

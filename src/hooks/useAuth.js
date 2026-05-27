@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export const useAuth = () => {
-  const [userId, setUserId] = useState<string | null>(null);
+  const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Sync userId with localStorage on mount
@@ -13,9 +13,9 @@ export const useAuth = () => {
 
   const isLoggedIn = !!userId;
 
-  const login = (userId: string) => {
-    localStorage.setItem('user_id', userId);
-    setUserId(userId);
+  const login = (id) => {
+    localStorage.setItem('user_id', id);
+    setUserId(id);
     // Let the component handle the redirect after login
   };
 

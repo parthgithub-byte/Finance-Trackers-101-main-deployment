@@ -7,7 +7,7 @@ export const getTransactions = async () => {
   return response.data;
 };
 
-export const addTransaction = async (description: string, amount: number, category: string, date: string) => {
+export const addTransaction = async (description, amount, category, date) => {
   try {
     console.log("📤 Sending to backend:", { description, amount, category, date });
     const response = await axios.post(`${API_URL}/transactions`, { description, amount, category, date });
@@ -19,9 +19,7 @@ export const addTransaction = async (description: string, amount: number, catego
   }
 };
 
-export const deleteTransaction = async (id: number) => {
+export const deleteTransaction = async (id) => {
   console.log(`Deleting transaction with ID: ${id}`);
-  await axios.delete(`http://127.0.0.1:5000/transactions/${id}`);
+  await axios.delete(`${API_URL}/transactions/${id}`);
 };
-
-

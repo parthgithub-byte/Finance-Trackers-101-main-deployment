@@ -8,27 +8,16 @@ import Graphs from '../Graphs';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000';
 
-interface Expense {
-  id: number;
-  description: string;
-  amount: number;
-  category: string;
-  date: string;
-}
-
-type SortField = 'date' | 'amount' | 'none';
-type SortDir = 'asc' | 'desc';
-
 // Parses **bold** and bullet lines (* / -) into JSX
-function InsightText({ text }: { text: string }) {
+function InsightText({ text }) {
   const lines = text.split('\n').filter((l) => l.trim() !== '');
 
-  const parseBold = (line: string) =>
+  const parseBold = (line) =>
     line.split(/\*\*(.*?)\*\*/g).map((part, i) =>
       i % 2 === 1 ? <strong key={i} className="font-semibold text-white">{part}</strong> : part
     );
 
-  const isBullet = (line: string) => /^[*\-]\s/.test(line.trim());
+  const isBullet = (line) => /^[*\-]\s/.test(line.trim());
   const bulletLines = lines.filter(isBullet);
   const headLines = lines.filter((l) => !isBullet(l));
 
@@ -58,7 +47,7 @@ export default function BudgetPage() {
   const navigate = useNavigate();
 
   // Data
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [expenses, setExpenses] = useState([]);
 
   // Charts panel
   const [showCharts, setShowCharts] = useState(false);
@@ -81,8 +70,8 @@ export default function BudgetPage() {
   const [isLoadingInsight, setIsLoadingInsight] = useState(false);
 
   // Sort & Filter
-  const [sortField, setSortField] = useState<SortField>('none');
-  const [sortDir, setSortDir] = useState<SortDir>('asc');
+  const [sortField, setSortField] = useState('none');
+  const [sortDir, setSortDir] = useState('asc');
   const [filterCategory, setFilterCategory] = useState('All');
 
   const categories = ['Housing', 'Food', 'Transportation', 'Entertainment', 'Groceries', 'Healthcare', 'Shopping', 'Others'];
@@ -98,7 +87,7 @@ export default function BudgetPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await addTransaction(
@@ -115,7 +104,7 @@ export default function BudgetPage() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id) => {
     try {
       await deleteTransaction(id);
       setExpenses(expenses.filter((e) => e.id !== id));
@@ -144,7 +133,7 @@ export default function BudgetPage() {
     }
   };
 
-  const handleSort = (field: SortField) => {
+  const handleSort = (field) => {
     if (sortField === field) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
     else { setSortField(field); setSortDir('asc'); }
   };
@@ -164,7 +153,7 @@ export default function BudgetPage() {
     return list;
   }, [expenses, filterCategory, sortField, sortDir]);
 
-  const SortBtn = ({ field, label }: { field: SortField; label: string }) => (
+  const SortBtn = ({ field, label }) => (
     <button
       onClick={() => handleSort(field)}
       className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
