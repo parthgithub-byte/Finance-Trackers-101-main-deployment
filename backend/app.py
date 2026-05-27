@@ -63,12 +63,11 @@ _charts_initialized = False
 
 @app.before_request
 def initialize_charts():
-    """Regenerate charts once on first request if data exists."""
+    """Regenerate charts once on first request."""
     global _charts_initialized
     if not _charts_initialized:
         _charts_initialized = True
-        if Transaction.query.count() > 0:
-            generate_all_charts()
+        generate_all_charts()
 
 
 # --- Auth Routes ---
@@ -217,11 +216,25 @@ def get_df():
     return df
 
 
+def _gen_empty_chart(filename, title):
+    html = f"""
+    <html><body style="background-color:rgba(0,0,0,0.85); color:white; font-family:'Orbitron', sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
+    <h2 style="color: #666;">{title}: No Data Available</h2>
+    </body></html>
+    """
+    with open(os.path.join(BASE_DIR, filename), "w") as f:
+        f.write(html)
+
 def generate_all_charts():
     """Generate all four chart HTML files into the backend directory."""
     try:
         df = get_df()
         if df.empty:
+            _gen_empty_chart("barplot.html", "Bar Chart")
+            _gen_empty_chart("linechart.html", "Line Chart")
+            _gen_empty_chart("piechart.html", "Pie Chart")
+            _gen_empty_chart("heatmap.html", "Heatmap")
+            print("✅ Generated empty charts.")
             return
         df["date"] = pd.to_datetime(df["date"])
         df_pivot = df.pivot_table(index="date", columns="category", values="amount", aggfunc="sum").fillna(0)
