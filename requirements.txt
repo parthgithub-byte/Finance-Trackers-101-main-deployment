@@ -6,3 +6,4 @@ plotly
 langchain
 langchain-google-genai
 python-dotenv
+gunicorn

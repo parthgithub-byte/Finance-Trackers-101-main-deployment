@@ -6,6 +6,8 @@ import { useTheme } from '../ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import Graphs from '../Graphs';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000';
+
 interface Expense {
   id: number;
   description: string;
@@ -128,7 +130,7 @@ export default function BudgetPage() {
     setIsLoadingInsight(true);    // show spinner
     setInsight('');               // clear old text
     try {
-      const response = await fetch('http://localhost:5000/insights', {
+      const response = await fetch(`${API_BASE}/insights`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ start_date: startDate, end_date: endDate }),
