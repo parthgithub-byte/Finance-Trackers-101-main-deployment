@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Force Dark Mode Styles */
+.dark-mode {
+  background-color: #1a202c; /* Dark gray */
+  color: #f7fafc; /* Light text */
+}
