@@ -8,8 +8,10 @@ const Graphs: React.FC = () => {
   useEffect(() => {
     const fetchPlots = () => {
       const updatedPlots: Record<string, string> = {};
+      const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      
       availablePlots.forEach((type) => {
-        updatedPlots[type] = `http://localhost:5000/plot/${type}?t=${new Date().getTime()}`;
+        updatedPlots[type] = `${API_BASE}/plot/${type}?t=${new Date().getTime()}`;
       });
       setPlots(updatedPlots);
     };
